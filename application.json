@@ -1,0 +1,9 @@
+{
+  "database": {
+    "user": "postgres",
+    "dbname": "alurago",
+    "password": "postgres",
+    "host": "localhost",
+    "sslmode": "disable"
+  }
+}
