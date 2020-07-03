@@ -10,4 +10,7 @@ func InitRoutes() {
 	http.HandleFunc("/new-product", controllers.Create)
 	http.HandleFunc("/create", controllers.Insert)
 	http.HandleFunc("/delete", controllers.Delete)
+	http.HandleFunc("/edit", controllers.RenderEdit)
+	http.HandleFunc("/update", controllers.Edit)
+
 }

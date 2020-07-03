@@ -53,3 +53,33 @@ func Delete(w http.ResponseWriter, r *http.Request){
 	models.Delete(id)
 	http.Redirect(w, r, "/", http.StatusPermanentRedirect)
 }
+
+func RenderEdit(w http.ResponseWriter, r *http.Request){
+	idStr := r.URL.Query().Get("id")
+	id, _ := strconv.Atoi(idStr)
+	product := models.FindById(id)
+	fmt.Println(product)
+	temp.ExecuteTemplate(w, "update", product)
+}
+
+func Edit(w http.ResponseWriter, r *http.Request){
+	idStr := r.URL.Query().Get("id")
+	id, _ := strconv.Atoi(idStr)
+	name := r.FormValue("name")
+	description := r.FormValue("description")
+	price := r.FormValue("price")
+	quantity := r.FormValue("quantity")
+
+	formatedPrice, err := strconv.ParseFloat(price, 64)
+	if err != nil {
+		fmt.Println("Wrong conversion format")
+	}
+
+	formatedQuantity, err := strconv.Atoi(quantity)
+	if err != nil {
+		fmt.Println("Wrong conversion format")
+	}
+	fmt.Println(idStr)
+	models.Edit(id, name, description, formatedPrice, formatedQuantity)
+	http.Redirect(w, r, "/", http.StatusPermanentRedirect)
+}

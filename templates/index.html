@@ -21,6 +21,7 @@
                                 <td>{{.Description}}</td>
                                 <td>{{.Price}}</td>
                                 <td>{{.Quantity}}</td>
+                                <td><a href="/edit?id={{.Id}}"><button class="btn btn-success">Editar</button></a></td>
                                 <td><button class="btn btn-danger" onclick="deletar({{.Id}})">Deletar</button></td>
                             </tr>
                                 {{end}}

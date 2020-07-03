@@ -59,3 +59,43 @@ func Delete(id int){
 	}
 	deleteString.Exec(id)
 }
+
+func Edit(id int, name, description string, price float64, quantity int){
+	conn := db.CreateConnection()
+	defer db.CloseConnection(conn)
+
+	updateString, err := conn.Prepare("update products set name=$1, description=$2, price=$3, quantity=$4 where id=$5")
+	if err != nil {
+		panic(err)
+	}
+	updateString.Exec(name, description, price, quantity, id)
+}
+
+func FindById(id int) Product{
+	conn := db.CreateConnection()
+	defer db.CloseConnection(conn)
+
+	selectString, err := conn.Prepare("select * from products where id=$1")
+	if err != nil {
+		panic(err)
+	}
+
+	rows, err := selectString.Query(id)
+	if err != nil {
+		panic(err)
+	}
+	var p Product
+	for rows.Next() {
+
+		var id, quantity int
+		var name, description string
+		var price float64
+		rows.Scan(&id, &name, &description, &price, &quantity)
+		p.Id = id
+		p.Name = name
+		p.Description = description
+		p.Price = price
+		p.Quantity = quantity
+	}
+	return p
+}
