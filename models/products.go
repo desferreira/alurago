@@ -63,12 +63,15 @@ func Delete(id int){
 func Edit(id int, name, description string, price float64, quantity int){
 	conn := db.CreateConnection()
 	defer db.CloseConnection(conn)
-
 	updateString, err := conn.Prepare("update products set name=$1, description=$2, price=$3, quantity=$4 where id=$5")
 	if err != nil {
 		panic(err)
 	}
-	updateString.Exec(name, description, price, quantity, id)
+	_, err = updateString.Exec(name, description, price, quantity, id)
+	if err != nil {
+		panic(err)
+	}
+
 }
 
 func FindById(id int) Product{

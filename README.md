@@ -1,0 +1,1 @@
+# Mini web app com features de cadastro, edição e delete de produtos. Utiliza banco de dados postgres e segue o padrão MVC

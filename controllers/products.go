@@ -43,7 +43,6 @@ func Insert(w http.ResponseWriter, r *http.Request){
 
 		models.Create(name, description, formatedPrice, formatedQuantity)
 		http.Redirect(w, r, "/", http.StatusPermanentRedirect)
-		fmt.Println("Redirecting to home")
 	}
 }
 
@@ -58,18 +57,17 @@ func RenderEdit(w http.ResponseWriter, r *http.Request){
 	idStr := r.URL.Query().Get("id")
 	id, _ := strconv.Atoi(idStr)
 	product := models.FindById(id)
-	fmt.Println(product)
 	temp.ExecuteTemplate(w, "update", product)
 }
 
 func Edit(w http.ResponseWriter, r *http.Request){
-	idStr := r.URL.Query().Get("id")
-	id, _ := strconv.Atoi(idStr)
+	idStr := r.FormValue("id")
 	name := r.FormValue("name")
 	description := r.FormValue("description")
 	price := r.FormValue("price")
 	quantity := r.FormValue("quantity")
 
+	id, _ := strconv.Atoi(idStr)
 	formatedPrice, err := strconv.ParseFloat(price, 64)
 	if err != nil {
 		fmt.Println("Wrong conversion format")
@@ -79,7 +77,6 @@ func Edit(w http.ResponseWriter, r *http.Request){
 	if err != nil {
 		fmt.Println("Wrong conversion format")
 	}
-	fmt.Println(idStr)
 	models.Edit(id, name, description, formatedPrice, formatedQuantity)
 	http.Redirect(w, r, "/", http.StatusPermanentRedirect)
 }

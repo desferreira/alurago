@@ -7,12 +7,12 @@
     <body>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-5">Novo produto</h1>
+            <h1 class="display-5">Editando um produto</h1>
             <p class="lead">Insira os detalhes</p>
         </div>
     </div>
-    <form method="POST" action="create">
-        {{range .}}
+    <form method="POST" action="update">
+        <input type="hidden" value="{{.Id}}" name="id">
         <div class="row">
             <div class="col-sm-8">
                 <div class="form-group">
@@ -46,8 +46,7 @@
                 </div>
             </div>
         </div>
-            {{end}}
-        <button type="submit" value="salvar" class="btn btn-success">Salvar</button>
+       <button value="update"type="submit" class="btn btn-success">Salvar</button>
         <a class="btn btn-info" href="/">Voltar</a>
     </form>
     </body>

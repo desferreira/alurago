@@ -19,10 +19,10 @@
                             <tr>
                                 <td>{{.Name}}</td>
                                 <td>{{.Description}}</td>
-                                <td>{{.Price}}</td>
+                                <td>R${{.Price}}</td>
                                 <td>{{.Quantity}}</td>
                                 <td><a href="/edit?id={{.Id}}"><button class="btn btn-success">Editar</button></a></td>
-                                <td><button class="btn btn-danger" onclick="deletar({{.Id}})">Deletar</button></td>
+                                <td><button class="btn btn-danger" onclick="deletar({{.Id}}, {{.Name}})">Deletar</button></td>
                             </tr>
                                 {{end}}
                     </tbody>
@@ -37,9 +37,9 @@
     </body>
 
     <script>
-        function deletar(id) {
+        function deletar(id, name) {
 
-            let response = confirm(`Deseja mesmo deletar o produto ${id}`)
+            let response = confirm(`Deseja mesmo deletar o produto ${name}`)
 
             if (response) {
                 window.location = `/delete?id=${id}`
